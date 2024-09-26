@@ -1,0 +1,56 @@
+﻿<Window x:Class="PRN221_SE1747_FirstWPF.AddStudent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PRN221_SE1747_FirstWPF"
+        mc:Ignorable="d"
+        Title="AddStudent" Height="450" Width="800">
+    <StackPanel Grid.Row="1">
+        <Label FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">Add Student</Label>
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="1 1 1 1">
+                <Label Width="90">ID</Label>
+                <TextBox Width="600" IsEnabled="False" Name="txtID" Text="{Binding Path = Id, Mode=OneWay}" Height="25"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="1 10 1 1">
+                <Label Width="90">Name</Label>
+                <TextBox Width="600" IsEnabled="True" Name="txtName" Text="{Binding Path = Name, Mode=OneWay}" Height="25"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="1 10 1 1">
+                <Label Width="90">Gender</Label>
+                <RadioButton Name="rbMale" Content="Male"></RadioButton>
+                <RadioButton Name="rbFemale" Content="Female" Margin="10 1 1 1"></RadioButton>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="1 10 1 1">
+                <Label Width="90">Birthday</Label>
+                <DatePicker Name="dpBirthday" Width="600" IsEnabled="True" SelectedDate="{Binding Path = Birthday, Mode=OneWay}" Height="25"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="1 10 1 1">
+                <Label Width="90">GPA</Label>
+                <TextBox Width="600" IsEnabled="True" Name="txtGpa" Text="{Binding Path = Gpa, Mode=OneWay}" Height="25"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="1 10 1 1">
+                <Label Width="90">Department</Label>
+                <ComboBox Width="600" IsEnabled="True" Name="cbDepartment" Text="{Binding Path = Depart.Name, Mode=OneWay}" Height="25" SelectionChanged="cbDepartment_SelectionChanged"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Margin="5 5 5 10">
+            <StackPanel Orientation="Horizontal" Margin="1 10 1 1" HorizontalAlignment="Center">
+                <Button Name="btnAdd" Content="Add" Width="100" Height="30" Click="btnAdd_Click" Margin="1 1 10 1"></Button>
+                <Button Name="btnClear" Content="Clear" Width="100" Height="30" Click="btnClear_Click" Margin="1 1 10 1"></Button>
+            </StackPanel>
+        </StackPanel>
+
+
+        
+
+    </StackPanel>
+</Window>

@@ -1,0 +1,34 @@
+﻿<Window x:Class="Demo_Xml_Json.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Demo_Xml_Json"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel>
+            <StackPanel>
+                <Button Name="btnXML" Margin="5" Content="Read XML" Click="Button_XML"/>
+                <Button Name="btnJson" Margin="5" Content="Read JSON" Click="Button_JSON"/>
+                <Button Name="btnTxt" Margin="5" Content="Read TXT" Click="Button_TXT"/>
+            </StackPanel>
+
+            <StackPanel>
+                <ListView Name="lvCatalog" ItemsSource="{Binding catalogs}" MaxHeight="400">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="100" Header="Author" DisplayMemberBinding="{Binding author}"/>
+                            <GridViewColumn Width="100" Header="Title" DisplayMemberBinding="{Binding title}"/>
+                            <GridViewColumn Width="100" Header="Genre" DisplayMemberBinding="{Binding genre}"/>
+                            <GridViewColumn Width="100" Header="Price" DisplayMemberBinding="{Binding price}"/>
+                            <GridViewColumn Width="200" Header="Date" DisplayMemberBinding="{Binding publish_date}"/>
+                            <GridViewColumn Width="200" Header="Description" DisplayMemberBinding="{Binding description}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
