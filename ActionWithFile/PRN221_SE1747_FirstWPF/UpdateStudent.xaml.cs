@@ -29,8 +29,8 @@ namespace PRN221_SE1747_FirstWPF
             InitializeComponent();
             this.student = student;
             this._context = _context;
-            FillDataToAttribute(student);
             LoadDepartment();
+            FillDataToAttribute(student);
         }
 
         private void FillDataToAttribute(Student student)
@@ -39,12 +39,12 @@ namespace PRN221_SE1747_FirstWPF
             txtGpa.Text = student.Gpa.ToString();
             rbMale.IsChecked = student.Gender == true ? rbMale.IsChecked = true : rbFemale.IsChecked = true;
             dpBirthday.SelectedDate = student.Dob;
-            cbDepartment.SelectedValue = student.Depart.Name;
+            cbDepartmentNavigation.SelectedValue = student.Depart.Name;
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if(student == null)
+            if (student == null)
             {
                 MessageBox.Show("Error when update student");
                 return;
@@ -53,7 +53,7 @@ namespace PRN221_SE1747_FirstWPF
             student.Name = txtName.Text;
             student.Dob = dpBirthday.SelectedDate;
             student.Gpa = double.Parse(txtGpa.Text);
-            student.DepartId = _context.Departments.Where(x => x.Name == cbDepartment.SelectedItem.ToString())?.Select(x => x.Id)?.FirstOrDefault();
+            student.DepartId = _context.Departments.Where(x => x.Name == cbDepartmentNavigation.SelectedItem.ToString())?.Select(x => x.Id)?.FirstOrDefault();
             student.Gender = rbMale.IsChecked == true ? true : false;
 
             try
@@ -62,7 +62,8 @@ namespace PRN221_SE1747_FirstWPF
                 _context.SaveChanges();
                 MessageBox.Show("Update student successfully");
                 this.Close();
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return;
@@ -78,10 +79,10 @@ namespace PRN221_SE1747_FirstWPF
         {
             LoadDepartment();
         }
-        
+
         private void LoadDepartment()
         {
-            cbDepartment.ItemsSource = _context.Departments.Select(x => x.Name).ToList();
+            cbDepartmentNavigation.ItemsSource = _context.Departments.Select(x => x.Name).ToList();
         }
     }
 }

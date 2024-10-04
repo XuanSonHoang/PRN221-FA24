@@ -30,7 +30,7 @@ namespace PRN221_SE1747_FirstWPF
         }
 
         private void LoadStudent()
-        {
+        {   
             lvStudent.ItemsSource = _context.Students.Include(x => x.Depart).ToList();
         }
 
@@ -67,6 +67,11 @@ namespace PRN221_SE1747_FirstWPF
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+            if(lvStudent.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a student to update!");
+                return;
+            }
             UpdateStudent updateStudent = new UpdateStudent(_context, lvStudent.SelectedItem as Student);
             updateStudent.ShowDialog();
             LoadStudent();
@@ -89,12 +94,12 @@ namespace PRN221_SE1747_FirstWPF
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void btn_Load(object sender, RoutedEventArgs e)
         {
-
+            LoadStudent();
         }
 
         private void cbDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -106,5 +111,78 @@ namespace PRN221_SE1747_FirstWPF
         {
             cbDepartment.ItemsSource = _context.Departments.Select(x => x.Name).ToList();
         }
+
+        private void tbSeachContent_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var searchBy = cbSearchBy.Text;
+
+            switch (searchBy)
+            {
+                case "Name": 
+                    lvStudent.ItemsSource = _context.Students.Include(x => x.Depart).Where(x => x.Name.Contains(tbSeachContent.Text)).ToList();
+                    break;
+
+                case "GPA":
+                    var gpa = tbSeachContent.Text;
+                    double gpaParse;
+
+                    if (string.IsNullOrWhiteSpace(gpa))
+                    {
+                        LoadStudent();
+                        return;
+                    }
+
+                    try
+                    {
+                        gpaParse = double.Parse(gpa);
+                    } catch(Exception ex)
+                    {
+                        MessageBox.Show("GPA must be a number");
+                        return;
+                    }
+                    lvStudent.ItemsSource = _context.Students.Include(x => x.Depart).Where(x => x.Gpa == gpaParse).ToList();
+                    break;
+            }
+        }
+
+        private void cbFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedFilterItem = (cbFilter.SelectedItem as ComboBoxItem)?.Content.ToString();
+
+            if (selectedFilterItem == "Gender")
+            {
+                var genders = new List<string> { "Male", "Female" };
+                cbFilterValue.ItemsSource = genders;
+                cbFilterValue.SelectionChanged += CbFilterValue_SelectionChanged_Gender;
+            }
+            else if (selectedFilterItem == "Department")
+            {
+                var departments = _context.Departments.Select(d => d.Name).ToList();
+                cbFilterValue.ItemsSource = departments;
+                cbFilterValue.SelectionChanged += CbFilterValue_SelectionChanged_Department;
+            }
+        }
+
+        private void CbFilterValue_SelectionChanged_Gender(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedGender = cbFilterValue.SelectedItem as string;
+
+            bool? genderValue = selectedGender == "Male" ? true : selectedGender == "Female" ? false : (bool?)null;
+
+            if (genderValue.HasValue)
+            {
+                lvStudent.ItemsSource = _context.Students.Include(s => s.Depart)
+                    .Where(s => s.Gender == genderValue).ToList();
+            }
+        }
+
+        private void CbFilterValue_SelectionChanged_Department(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedDepartment = cbFilterValue.SelectedItem as string;
+
+            lvStudent.ItemsSource = _context.Students.Include(s => s.Depart)
+                .Where(s => s.Depart.Name == selectedDepartment).ToList();
+        }
+
     }
 }

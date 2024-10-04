@@ -1,5 +1,5 @@
 ﻿@page
-@model Demo_Razor.Pages.Student.AddModel
+@model Demo_Razor.Pages.StudentOption3.AddModel
 @{
     ViewData["Title"] = "Add New Student";
     var depart = Model.departs;
@@ -21,10 +21,8 @@
 
         <div class="mb-3">
             <label for="Gender" class="form-label">Gender</label>
-            <select class="form-select" id="Gender" name="Gender" required>
-                <option value="true">Male</option>
-                <option value="false">Female</option>
-            </select>
+            <input type="radio" value="Male" name="gender" /> Male
+            <input type="radio" value="Female" name="gender" /> Female
         </div>
 
         <div class="mb-3">
@@ -38,22 +36,36 @@
         </div>
 
         <div class="mb-3">
-            <label for="DepartId" class="form-label">Department</label>
-            <select class="form-control" name="DepartId" required>
-                @if (depart == null)
+            <label for="DepartId" class="form-label">Department</label> <br />
+            @if (depart == null)
+            {
+                <option value="0">No department found</option>
+            }
+            else
+            {
+                foreach (var item in depart)
                 {
-                    <option value="0">No department found</option>
+                    <input type="checkbox" value="@item.Id" name="deepartment" class="depart-checkbox" /> @item.Name <br />
                 }
-                else
-                {
-                    foreach (var item in depart)
-                    {
-                        <option value="@item.Id">@item.Name</option>
-                    }
-                }
-            </select>
+            }
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="/Student/List" class="btn btn-secondary">Back to List</a>
+        <a href="/StudentOption2/List" class="btn btn-secondary">Back to List</a>
     </form>
 </div>
+
+<script>
+    const departCheckboxes = document.querySelectorAll('.depart-checkbox');
+
+    departCheckboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                departCheckboxes.forEach((cb) => {
+                    if (cb !== e.target) {
+                        cb.checked = false;
+                    }
+                });
+            }
+        });
+    });
+</script>

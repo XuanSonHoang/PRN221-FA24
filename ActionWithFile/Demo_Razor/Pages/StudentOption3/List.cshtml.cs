@@ -2,9 +2,8 @@ using Demo_Razor.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
 
-namespace Demo_Razor.Pages.Student
+namespace Demo_Razor.Pages.StudentOption3
 {
     public class ListModel : PageModel
     {
@@ -22,7 +21,7 @@ namespace Demo_Razor.Pages.Student
 
             var stringSearch = Request.Form["searchName"].ToString();
 
-            if(string.IsNullOrWhiteSpace(stringSearch))
+            if (string.IsNullOrWhiteSpace(stringSearch))
             {
                 students = _context.Students.Where(x => x.Name.Contains(stringSearch)).Include(x => x.Depart).ToList();
                 return Page();

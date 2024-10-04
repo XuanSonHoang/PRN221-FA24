@@ -1,5 +1,5 @@
 ﻿@page
-@model Demo_Razor.Pages.Student.AddModel
+@model Demo_Razor.Pages.StudentOption2.AddModel
 @{
     ViewData["Title"] = "Add New Student";
     var depart = Model.departs;
@@ -21,10 +21,8 @@
 
         <div class="mb-3">
             <label for="Gender" class="form-label">Gender</label>
-            <select class="form-select" id="Gender" name="Gender" required>
-                <option value="true">Male</option>
-                <option value="false">Female</option>
-            </select>
+            <input type="radio" value="Male" name="gender" /> Male
+            <input type="radio" value="Female" name="gender" /> Female
         </div>
 
         <div class="mb-3">
@@ -54,6 +52,6 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="/Student/List" class="btn btn-secondary">Back to List</a>
+        <a href="/StudentOption2/List" class="btn btn-secondary">Back to List</a>
     </form>
 </div>

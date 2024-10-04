@@ -39,7 +39,7 @@
 
             <StackPanel Orientation="Horizontal" Margin="1 10 1 1">
                 <Label Width="90">Department</Label>
-                <ComboBox Width="600" IsEnabled="True" Name="cbDepartment" Text="{Binding Path = Depart.Name, Mode=OneWay}" Height="25" SelectionChanged="cbDepartment_SelectionChanged"/>
+                <ComboBox Width="600" IsEnabled="True" Name="cbDepartmentNavigation" Height="25" SelectionChanged="cbDepartment_SelectionChanged"/>
             </StackPanel>
         </StackPanel>
 

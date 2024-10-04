@@ -1,9 +1,8 @@
 using Demo_Razor.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
-namespace Demo_Razor.Pages.Student
+namespace Demo_Razor.Pages.StudentOption2
 {
     public class AddModel : PageModel
     {
@@ -16,7 +15,7 @@ namespace Demo_Razor.Pages.Student
 
         public async Task<IActionResult> OnPost(IFormCollection formCollection)
         {
-            if(ModelState.IsValid == false)
+            if (ModelState.IsValid == false)
             {
                 Console.Write("invalid");
                 return Page();
@@ -30,7 +29,7 @@ namespace Demo_Razor.Pages.Student
                 {
                     Id = ++maxStudentId,
                     Name = formCollection["Name"],
-                    Gender = formCollection["Gender"] == "true" ? true : false,
+                    Gender = formCollection["Gender"] == "Male" ? true : false,
                     Dob = formCollection["Dob"].ToString() == "" ? null : (System.DateTime?)System.DateTime.Parse(formCollection["Dob"]),
                     Gpa = double.Parse(formCollection["Gpa"]),
                     DepartId = formCollection["DepartId"]
@@ -38,11 +37,12 @@ namespace Demo_Razor.Pages.Student
 
                 await _context.Students.AddAsync(student);
                 _context.SaveChanges();
-            } catch (System.Exception)
+            }
+            catch (System.Exception)
             {
                 throw;
             }
-            
+
             return RedirectToPage("List");
         }
     }

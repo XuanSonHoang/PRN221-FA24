@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PRN221_SE1747_FirstWPF"
         mc:Ignorable="d"
-        Title="Student Management" Height="700" Width="750"
+        Title="Student Management" Height="1000" Width="750"
         WindowStartupLocation="CenterScreen">
 
     <Grid Margin="0,0,0,-108">
@@ -47,6 +47,26 @@
                     <Label Width="90">Department</Label>
                     <ComboBox Width="600" IsEnabled="True" Name="cbDepartment" Text="{Binding Path = Depart.Name, Mode=OneWay}" Height="25" SelectionChanged="cbDepartment_SelectionChanged"/>
                 </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="1 10 1 1">
+                    <Label Width="90">Search by: </Label>
+                    <ComboBox Width="66" IsEnabled="True" Name="cbSearchBy" Height="25" SelectionChanged="cbDepartment_SelectionChanged">
+                        <ComboBoxItem Name="cbSearchByName" Content="Name"></ComboBoxItem>
+                        <ComboBoxItem Name="cbSearchByGPA" Content="GPA"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Width="90">Search content:</Label>
+                    <TextBox Name="tbSeachContent" Width="444" TextChanged="tbSeachContent_TextChanged"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="1 10 1 1">
+                    <Label Width="90">Filter by:</Label>
+                    <ComboBox Width="66" IsEnabled="True" Name="cbFilter" Height="25" SelectionChanged="cbFilter_SelectionChanged">
+                        <ComboBoxItem Name="cbFilterByGender" Content="Gender"></ComboBoxItem>
+                        <ComboBoxItem Name="cbFilterByDepartment" Content="Department"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Width="100">Filter Expression:</Label>
+                    <ComboBox Width="90" Name="cbFilterValue"></ComboBox>
+                </StackPanel>
             </StackPanel>
 
             <StackPanel Margin="5 5 5 10">
@@ -71,8 +91,8 @@
                         <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="50"></GridViewColumn>
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150"></GridViewColumn>
                         <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="100"></GridViewColumn>
-                        <GridViewColumn Header="DOB" DisplayMemberBinding="{Binding Dob}" Width="100"></GridViewColumn>
-                        <GridViewColumn Header="Gpa" DisplayMemberBinding="{Binding Gpa}" Width="150"></GridViewColumn>
+                        <GridViewColumn Header="DOB" DisplayMemberBinding="{Binding Dob}" Width="160"></GridViewColumn>
+                        <GridViewColumn Header="Gpa" DisplayMemberBinding="{Binding Gpa}" Width="75"></GridViewColumn>
                         <GridViewColumn Header="Department" DisplayMemberBinding="{Binding Depart.Name}" Width="200"></GridViewColumn>
                     </GridView>
                 </ListView.View>
