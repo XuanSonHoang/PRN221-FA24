@@ -1,0 +1,59 @@
+﻿@page
+@model Demo_Razor.Pages.Student.UpdateModel
+@{
+    ViewData["Title"] = "Update Student";
+    var student = Model.Student;
+    var depart = Model.departs;
+}
+
+<div class="container mt-4">
+    <h2>Update Student</h2>
+
+    <form method="post" class="mt-3">
+        <div class="mb-3">
+            <label for="Id" class="form-label">Student ID</label>
+            <input type="text" class="form-control" id="Id" name="Id" value="@student.Id" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label for="Name" class="form-label">Student Name</label>
+            <input type="text" class="form-control" id="Name" name="Name" value="@student.Name" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Gender" class="form-label">Gender</label>
+            <input type="radio" id="male" name="Gender" value="true" @(student.Gender ? "checked" : "") /> Male
+            <input type="radio" id="female" name="Gender" value="false" @(!student.Gender ? "checked" : "") /> Female
+        </div>
+
+        <div class="mb-3">
+            <label for="Dob" class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" id="Dob" name="Dob" value="@(student.Dob?.ToString("yyyy-MM-dd"))" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Gpa" class="form-label">GPA</label>
+            <input type="number" class="form-control" id="Gpa" name="Gpa" value="@student.Gpa" step="0.01" min="0" max="4" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Gpa" class="form-label">Department</label>
+            <select class="form-control" name="DepartId">
+                @if (depart == null)
+                {
+                    <option value="AI">No department found</option>
+                }
+                else
+                {
+                    foreach (var item in depart)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="/Student/List" class="btn btn-secondary">Back to List</a>
+    </form>
+</div>

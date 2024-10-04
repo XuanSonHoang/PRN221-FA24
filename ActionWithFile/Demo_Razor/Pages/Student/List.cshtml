@@ -1,0 +1,65 @@
+﻿@page
+@model Demo_Razor.Pages.Student.ListModel
+@{
+    var countStudent = Model.students?.Count;
+}
+<div class="container mt-4">
+    <h1 class="mb-4">Student List: @countStudent</h1>
+
+    <form method="post" class="d-flex mb-3">
+        <input type="text" name="searchName" class="form-control me-2" placeholder="Search by name" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <a href="/Student/Add" class="btn btn-success mb-3">Add New Student</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Student Gender</th>
+                <th>Student DOB</th>
+                <th>Student GPA</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (countStudent == 0)
+            {
+                <tr>
+                    <td colspan="6" class="text-center">No student found</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var student in Model.students)
+                {
+                    <tr>
+                        <td>@student.Id</td>
+                        <td>@student.Name</td>
+                        <td>@(student.Gender == true ? "Male" : "Female")</td>
+                        <td>@student.Dob</td>
+                        <td>@student.Gpa</td>
+                        <td>@student.Depart?.Name</td>
+                        <td>
+                            <a href="/Student/Update?studentId=@student.Id" class="btn btn-warning btn-sm me-1">Update</a>
+                            <button onclick="return confirmDelete('@student.Id')" class="btn btn-danger btn-sm">Delete</button>
+                            <a href="/Student/Detail/@student.Id" class="btn btn-success btn-sm">Detail</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function confirmDelete(studentId) {
+        if (confirm("Are you sure you want to delete this student?")) {
+            window.location.href = "/Student/Delete?studentId=" + studentId;
+        }
+        return false;
+    }
+</script>
